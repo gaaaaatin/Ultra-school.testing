@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#F4F4F1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Ultra school">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" type="image/png" href="assets/icons/icon-192.png">
+  <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+  <title>Ultra school — математика</title>
+  <link rel="stylesheet" href="app/fonts.css?v=20261124-024419">
+  <link rel="stylesheet" href="app/style.css?v=20261124-024419">
+  <link rel="stylesheet" href="app/background.css?v=20261124-024419">
+  <link rel="stylesheet" href="app/video.css?v=20261124-024419">
+</head>
+<body>
+
+<!-- ═════════ Главное меню ═════════ -->
+<section id="menu" class="screen">
+  <header class="appbar">
+    <div class="logo" role="img" aria-label="Ultra school">
+      <span class="lg-word"><span class="lg-ext">Ultra<br>School</span><span class="lg-face">Ultra<br>School</span><span class="lg-edge">Ultra<br>School</span></span>
+      <i class="lg-spark"></i><i class="lg-spark small"></i>
+    </div>
+  </header>
+
+  <!-- Приветственное окно: сначала диагностика прямо здесь, после неё — программа ученика -->
+  <div class="hero" id="hero">
+    <div class="hero-text" id="heroPanel">
+      <div class="tags"><span class="tag">ЕГЭ 2027</span><span class="tag">Профиль + база</span></div>
+      <h1>Матеша<br>без <em>душноты</em></h1>
+      <p>Бесконечные тесты по всем темам кодификатора. Макс объясняет, Икс — подкалывает.</p>
+    </div>
+    <div class="hero-cast" id="heroCast">
+      <div class="glow"></div>
+      <div class="actor cast-max" data-depth="0.5"><img src="assets/max.png" alt="Макс"></div>
+      <div class="actor cast-grin" data-depth="1">
+        <div class="bubble hero-bubble" id="helloBubble"></div>
+        <img id="heroGrin" src="assets/x-hi.png" alt="Икс">
+      </div>
+    </div>
+  </div>
+
+  <!-- Всё ниже открывается после диагностики -->
+  <div id="menuMain" hidden>
+  <section class="clock" id="examClock"></section>
+  <section class="route" id="route"></section>
+
+  <section class="plan" id="plan">
+    <div class="plan-head">
+      <div>
+        <div class="plan-eyebrow">План на сегодня</div>
+        <h2 class="plan-title" id="planTitle"></h2>
+      </div>
+      <div class="streak" id="streak"></div>
+    </div>
+    <div class="pace" id="pace"></div>
+    <div class="plan-steps" id="planSteps"></div>
+    <button class="cta" id="planStart"><span id="planHint"></span><b id="planBtn"></b></button>
+    <div class="plan-foot" id="planFoot"></div>
+  </section>
+  <div class="prefs" id="prefs"></div>
+
+  <h2 class="section-title">Или выбери тему сам</h2>
+  <div class="chips" id="chips"></div>
+  <div class="topics" id="topics"></div>
+
+  <div class="dock">
+    <div class="dock-inner">
+      <div class="seg" id="countSeg">
+        <button data-n="5">5</button><button data-n="10" class="on">10</button><button data-n="15">15</button><button data-n="20">20</button>
+      </div>
+      <button class="cta" id="start"><span id="startLabel">Все темы</span><b>Погнали →</b></button>
+    </div>
+  </div>
+  <button id="resetStats" class="linkbtn">Сбросить статистику</button>
+  </div>
+</section>
+
+<!-- ═════════ Вопрос ═════════ -->
+<section id="quiz" class="screen" hidden>
+  <header class="quizbar">
+    <button class="round" id="quitQuiz" title="В меню">✕</button>
+    <div class="segments" id="segments"></div>
+    <div class="pill score" id="scorePill">0 ✓</div>
+  </header>
+
+  <div class="qcard">
+    <div class="peek-wrap"><img class="peek" id="peek" src="assets/x-hi.png" alt=""></div>
+    <div class="qmeta"><span class="tag dark" id="topicLabel"></span><span class="qnum" id="qnum"></span></div>
+    <div class="question" id="question"></div>
+    <button class="theory-btn" id="theoryBtn" aria-expanded="false">Шпаргалка по теме</button><button class="video-btn" id="videoBtn" hidden>▶ Видео по теме</button>
+    <div class="theory" id="theoryBox" hidden></div>
+  </div>
+
+  <div class="options" id="options"></div>
+
+  <div class="feedback" id="feedback" hidden>
+    <div class="say grin">
+      <div class="ava ava-grin"><img id="grinAva" src="assets/x-meh.png" alt="Икс"></div>
+      <div class="bubble"><div class="who">Икс</div><div id="grinSays"></div></div>
+    </div>
+    <div class="say max">
+      <div class="ava ava-max"><img src="assets/max.png" alt="Макс"></div>
+      <div class="bubble dark"><div class="who">Макс</div><div id="verdict"></div><div class="hint" id="hint" hidden></div><div id="explain"></div><div class="mistakes" id="mistakes" hidden></div></div>
+    </div>
+    <button class="cta next" id="next"><i id="timerFill"></i><b>Дальше →</b><span class="hint">Enter</span></button>
+  </div>
+</section>
+
+<!-- ═════════ Итог теста ═════════ -->
+<section id="result" class="screen" hidden>
+  <div class="rescard">
+    <div class="tag lime" id="resultTitle"></div>
+    <div class="bigscore" id="resultScore"></div>
+    <div class="segments big" id="resultSegments"></div>
+    <div class="res-cast">
+      <div class="actor res-grin"><img id="resultGrin" src="assets/x-wow.png" alt="Икс"></div>
+      <div class="bubble" id="resultNote"></div>
+    </div>
+  </div>
+  <div class="countdown" id="countdown"></div>
+  <div class="res-actions">
+    <button class="cta" id="startNow"><b>Следующий тест →</b></button>
+    <button class="ghost" id="quitResult">В меню</button>
+  </div>
+</section>
+
+<script src="data/topics.js?v=20261124-024419"></script>
+<script src="data/questions.js?v=20261124-024419"></script>
+<script src="data/generators.js?v=20261124-024419"></script>
+<script src="data/exam.js?v=20261124-024419"></script>
+<script src="data/phrases.js?v=20261124-024419"></script>
+<script src="data/diagnostic.js?v=20261124-024419"></script>
+<script src="data/theory.js?v=20261124-024419"></script>
+<script src="data/videos.js?v=20261124-024419"></script>
+<script src="app/metodist.js?v=20261124-024419"></script>
+<script src="app/app.js?v=20261124-024419"></script>
+<script src="app/video.js?v=20261124-024419"></script>
+</body>
+</html>
